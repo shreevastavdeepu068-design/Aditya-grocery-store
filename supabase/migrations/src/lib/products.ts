@@ -71,3 +71,88 @@ export async function getProductsByCategory(
     categoryId,
   });
 }
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  return data;
+}
+
+export async function searchProducts(keyword: string): Promise<Product[]> {
+  return getProducts({
+    search: keyword,
+  });
+}
+
+export async function createProduct(
+  product: Database["public"]["Tables"]["products"]["Insert"]
+) {
+  const { data, error } = await supabase
+    .from("products")
+    .insert(product)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
+}
+
+export async function updateProduct(
+  id: string,
+  updates: Database["public"]["Tables"]["products"]["Update"]
+) {
+  const { data, error } = await supabase
+    .from("products")
+    .update(updates)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
+}
+
+export async function deleteProduct(id: string) {
+  const { error } = await supabase
+    .from("products")
+    .delete()
+    .eq("id", id);
+
+  if (error) throw error;
+
+  return true;
+}
+
+export async function toggleFeatured(
+  id: string,
+  featured: boolean
+) {
+  return updateProduct(id, {
+    featured,
+  });
+}
+
+export async function toggleAvailability(
+  id: string,
+  is_available: boolean
+) {
+  return updateProduct(id, {
+    is_available,
+  });
+}
+
+export async function getLatestProducts(limit = 10) {
+  return getProducts({
+    limit,
+  });
+}
