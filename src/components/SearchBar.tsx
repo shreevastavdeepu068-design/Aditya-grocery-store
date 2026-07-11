@@ -18,7 +18,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   isLoading = false,
   className = "",
   suggestions,
-  onSuggestionSelect,
 }) => {
   const [query, setQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);

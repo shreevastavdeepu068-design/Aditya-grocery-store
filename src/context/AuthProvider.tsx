@@ -12,7 +12,6 @@ import {
   getCurrentUser,
   refreshSession,
   onAuthStateChange,
-  getUserRole,
   getUserProfile,
 } from '@/lib/auth';
 
@@ -51,7 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }): React.React
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authError, setAuthError] = useState<AuthError | null>(null);
+  const [, setAuthError] = useState<AuthError | null>(null);
   const [isOnline, setIsOnline] = useState(true);
 
   // Use refs to track cleanup and avoid memory leaks

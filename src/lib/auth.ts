@@ -540,7 +540,7 @@ export async function refreshSession(): Promise<AuthResponse<AuthSession>> {
 export function onAuthStateChange(
   callback: (user: User | null, role: AuthRole | null) => void
 ): () => void {
-  const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
+  const { data } = supabase.auth.onAuthStateChange(async (_event, session) => {
     if (session?.user) {
       const role = await getUserRole(session.user.id);
       callback(session.user, role);
