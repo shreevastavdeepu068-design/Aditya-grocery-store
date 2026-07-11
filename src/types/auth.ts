@@ -94,8 +94,8 @@ export interface AuthContextValue {
   user: AuthUser | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  signInWithEmailOTP: (email: string) => Promise<AuthResponse<{ data: unknown }>>;
-  signInWithPhoneOTP: (phone: string) => Promise<AuthResponse<{ data: unknown }>>;
+  signInWithEmailOTP: (email: string) => Promise<AuthResponse<unknown>>;
+  signInWithPhoneOTP: (phone: string) => Promise<AuthResponse<unknown>>;
   verifyOTP: (contact: string, token: string, type: 'sms' | 'email') => Promise<AuthResponse<unknown>>;
   signInWithEmailPassword: (email: string, password: string) => Promise<AuthResponse<unknown>>;
   signOut: () => Promise<AuthResponse<void>>;

@@ -379,12 +379,11 @@ export async function verifyOTP(
   }
 
   try {
-    const { data, error } = await supabase.auth.verifyOtp({
-      phone: type === 'sms' ? trimmedContact : undefined,
-      email: type === 'email' ? trimmedContact : undefined,
-      token,
-      type,
-    });
+    const { data, error } = await supabase.auth.verifyOtp(
+      type === 'email'
+        ? { email: trimmedContact, token, type }
+        : { phone: trimmedContact, token, type }
+    );
 
     if (error) {
       throw error;
